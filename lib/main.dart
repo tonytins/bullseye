@@ -78,8 +78,8 @@ class _GamePageState extends State<GamePage> {
         context: context,
         builder: (BuildContext context) {
           return PlatformAlertDialog(
-            title: Text("Hello There."),
-            content: Text("This is my first pop-up."),
+            title: PlatformText("Hello There."),
+            content: PlatformText("The slider's value is ${_model.current}"),
             actions: <Widget>[okButton],
           );
         });
