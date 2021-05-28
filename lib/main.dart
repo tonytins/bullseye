@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:bullseye/prompt.dart';
+import 'package:bullseye/control.dart';
 
 void main() => runApp(BullsEyeApp());
 
@@ -6,6 +9,8 @@ class BullsEyeApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return MaterialApp(
       title: 'BullsEye',
       theme: ThemeData(
@@ -34,9 +39,8 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Hello World!",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.green)),
+            Prompt(targetValue: 100),
+            Control(),
             TextButton(
                 child: Text('Hit me!'),
                 onPressed: () {
