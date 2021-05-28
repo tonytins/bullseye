@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -10,18 +11,19 @@ import 'package:bullseye/game_model.dart';
 void main() => runApp(BullsEyeApp());
 
 class BullsEyeApp extends StatelessWidget {
+  Brightness currentBrightness = Brightness.light;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-    return MaterialApp(
-      title: 'BullsEye',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: GamePage(title: 'BullsEye'),
-    );
+    return PlatformApp(
+        title: 'BullsEye',
+        // For some reason text is black in dark mode on iOS
+        cupertino: (_, __) => CupertinoAppData(
+            theme: CupertinoThemeData(brightness: Brightness.light)),
+        home: GamePage(title: 'BullsEye'));
   }
 }
 
@@ -45,7 +47,7 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PlatformScaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +68,7 @@ class _GamePageState extends State<GamePage> {
   }
 
   void _showAlert(BuildContext context) {
-    Widget okButton = TextButton(
+    Widget okButton = PlatformTextButton(
         child: PlatformText("Awesome!"),
         onPressed: () {
           Navigator.of(context).pop();
@@ -74,7 +76,7 @@ class _GamePageState extends State<GamePage> {
           print("Awesome Pressed! $_alertIsVisable");
         });
 
-    showDialog(
+    showPlatformDialog(
         context: context,
         builder: (BuildContext context) {
           return PlatformAlertDialog(
