@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bullseye/prompt.dart';
 import 'package:bullseye/control.dart';
+import 'package:bullseye/score.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 void main() => runApp(BullsEyeApp());
 
@@ -41,12 +43,13 @@ class _GamePageState extends State<GamePage> {
           children: [
             Prompt(targetValue: 100),
             Control(),
-            TextButton(
-                child: Text('Hit me!'),
+            PlatformTextButton(
+                child: PlatformText('Hit me!'),
                 onPressed: () {
                   this._alertIsVisable = true;
                   _showAlert(context);
-                })
+                }),
+            Score()
           ],
         ),
       ),
@@ -55,7 +58,7 @@ class _GamePageState extends State<GamePage> {
 
   void _showAlert(BuildContext context) {
     Widget okButton = TextButton(
-        child: Text("Awesome!"),
+        child: PlatformText("Awesome!"),
         onPressed: () {
           Navigator.of(context).pop();
           this._alertIsVisable = false;
@@ -65,11 +68,10 @@ class _GamePageState extends State<GamePage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return PlatformAlertDialog(
             title: Text("Hello There."),
             content: Text("This is my first pop-up."),
             actions: <Widget>[okButton],
-            elevation: 5,
           );
         });
   }

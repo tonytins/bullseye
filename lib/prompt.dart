@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class Prompt extends StatelessWidget {
   Prompt({@required this.targetValue});
@@ -6,11 +7,10 @@ class Prompt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children: <Widget>[
-        Text("PUT THE BULLSEYE AS CLOSE YOU CAN TO"),
-        Text("$targetValue")
+        PlatformText("PUT THE BULLSEYE AS CLOSE YOU CAN TO"),
+        PlatformText("$targetValue")
       ],
     );
   }

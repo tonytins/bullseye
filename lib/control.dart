@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class Control extends StatefulWidget {
   Control({Key? key}) : super(key: key);
@@ -15,8 +16,8 @@ class _ControlState extends State<Control> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("1"),
-        Slider(
+        PlatformText("1"),
+        PlatformSlider(
           value: _currentValue,
           onChanged: (newValue) {
             setState(() {
@@ -27,7 +28,7 @@ class _ControlState extends State<Control> {
           min: 1.0,
           max: 100.0,
         ),
-        Text("100")
+        PlatformText("100")
       ],
     );
   }
