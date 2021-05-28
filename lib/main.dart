@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 import 'package:flutter/services.dart';
 import 'package:bullseye/prompt.dart';
 import 'package:bullseye/control.dart';
 import 'package:bullseye/score.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:bullseye/game_model.dart';
 
 void main() => runApp(BullsEyeApp());
 
@@ -33,6 +35,13 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   bool _alertIsVisable = false;
+  GameModel _model = GameModel(50);
+
+  @override
+  void initState() {
+    super.initState();
+    _model = GameModel(50);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +50,15 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Prompt(targetValue: 100),
-            Control(),
+            Prompt(targetValue: _model.target),
+            Control(model: _model),
             PlatformTextButton(
                 child: PlatformText('Hit me!'),
                 onPressed: () {
                   this._alertIsVisable = true;
                   _showAlert(context);
                 }),
-            Score()
+            Score(totalScore: _model.totalScore, round: _model.round)
           ],
         ),
       ),
