@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "bullseye")
-set(APPLICATION_ID "com.example.bullseye")
+set(BINARY_NAME "Bullseye")
+set(APPLICATION_ID "com.tonybark.bullseye")
 
 cmake_policy(SET CMP0063 NEW)
 

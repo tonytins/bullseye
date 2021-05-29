@@ -1,29 +1,46 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:bullseye/desktop.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import 'package:flutter/services.dart';
 import 'package:bullseye/prompt.dart';
 import 'package:bullseye/control.dart';
 import 'package:bullseye/score.dart';
 import 'package:bullseye/game_model.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-void main() => runApp(BullsEyeApp());
+const gameTitle = "Bullseye";
+
+void main() {
+  runApp(BullsEyeApp());
+
+  if (isDesktop) {
+    doWhenWindowReady(() {
+      final win = appWindow;
+      final minSize = Size(600, 450);
+
+      win.minSize = minSize;
+      win.size = minSize;
+      win.alignment = Alignment.center;
+      win.title = gameTitle;
+
+      win.show();
+    });
+  }
+}
 
 class BullsEyeApp extends StatelessWidget {
-  Brightness currentBrightness = Brightness.light;
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return PlatformApp(
-        title: 'BullsEye',
-        // For some reason text is black in dark mode on iOS
-        cupertino: (_, __) => CupertinoAppData(
-            theme: CupertinoThemeData(brightness: Brightness.light)),
-        home: GamePage(title: 'BullsEye'));
+        title: gameTitle,
+        debugShowCheckedModeBanner: false,
+        home: GamePage(title: gameTitle));
   }
 }
 
@@ -37,38 +54,69 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   bool _alertIsVisable = false;
-  GameModel _model = GameModel(50);
+  late GameModel _model;
 
   @override
   void initState() {
     super.initState();
-    _model = GameModel(50);
+    var rng = Random();
+    _model = GameModel(rng.nextInt(100) + 1);
+  }
+
+  Widget gameContainer() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Prompt(targetValue: _model.target),
+        Control(model: _model),
+        PlatformTextButton(
+            child: PlatformText('Hit me!'),
+            onPressed: () {
+              this._alertIsVisable = true;
+              _showAlert(context);
+            })
+      ],
+    );
+  }
+
+  Widget mobileContainer() {
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      gameContainer(),
+      Score(totalScore: _model.totalScore, round: _model.round)
+    ]);
+  }
+
+  Widget desktopContainer() {
+    return Column(children: [
+      Container(
+          height: 50,
+          child: WindowTitleBarBox(
+              child: Row(
+            children: [
+              Expanded(
+                  child: MoveWindow(
+                      child: Score(
+                          totalScore: _model.totalScore, round: _model.round)))
+            ],
+          ))),
+      Expanded(child: gameContainer()),
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Prompt(targetValue: _model.target),
-            Control(model: _model),
-            PlatformTextButton(
-                child: PlatformText('Hit me!'),
-                onPressed: () {
-                  this._alertIsVisable = true;
-                  _showAlert(context);
-                }),
-            Score(totalScore: _model.totalScore, round: _model.round)
-          ],
-        ),
-      ),
+    return Scaffold(
+      body: LayoutBuilder(builder: (context, constraints) {
+        if (isDesktop)
+          return desktopContainer();
+        else
+          return mobileContainer();
+      }),
     );
   }
 
   void _showAlert(BuildContext context) {
-    Widget okButton = PlatformTextButton(
+    var okButton = PlatformTextButton(
         child: PlatformText("Awesome!"),
         onPressed: () {
           Navigator.of(context).pop();

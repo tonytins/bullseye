@@ -13,7 +13,7 @@ class Score extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PlatformButton(
+        PlatformTextButton(
           child: PlatformText("Start Over"),
           onPressed: () {},
         ),
@@ -35,7 +35,7 @@ class Score extends StatelessWidget {
             ],
           ),
         ),
-        PlatformButton(
+        PlatformTextButton(
           child: PlatformText("Info"),
           onPressed: () {},
         )

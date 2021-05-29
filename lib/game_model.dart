@@ -8,8 +8,8 @@ class GameModel {
       this.totalScore = SCORE_START,
       this.round = ROUND_START]);
 
-  int? target;
-  int? current;
-  int? totalScore;
-  int? round;
+  late int target;
+  late int current;
+  late int totalScore;
+  late int round;
 }
