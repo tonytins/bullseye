@@ -20,7 +20,6 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build linux
 
   android:
@@ -34,7 +33,6 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build apk
       - run: flutter build appbundle
 
@@ -46,7 +44,6 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build macos --release --no-codesign
 
   ios:
@@ -57,7 +54,7 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter test
+
       - run: flutter build ios --release --no-codesign
 
   windows:
@@ -68,5 +65,4 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build windows
