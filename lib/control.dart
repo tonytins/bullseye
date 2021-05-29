@@ -11,7 +11,7 @@ class Control extends StatefulWidget {
 }
 
 class _ControlState extends State<Control> {
-  static const double PADDING = 45;
+  static const double PADDING = 25;
 
   @override
   Widget build(BuildContext context) {

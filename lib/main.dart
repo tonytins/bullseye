@@ -80,10 +80,11 @@ class _GamePageState extends State<GamePage> {
   }
 
   Widget mobileContainer() {
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return SafeArea(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       gameContainer(),
       Score(totalScore: _model.totalScore, round: _model.round)
-    ]);
+    ]));
   }
 
   Widget desktopContainer() {
