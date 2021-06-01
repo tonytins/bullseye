@@ -116,6 +116,13 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
+  int _pointsForCurrentRound() {
+    var maxScore = 100;
+    var difference = (_model.target - _model.current).abs();
+
+    return maxScore - difference;
+  }
+
   void _showAlert(BuildContext context) {
     var okButton = PlatformTextButton(
         child: PlatformText("Awesome!"),
@@ -130,7 +137,8 @@ class _GamePageState extends State<GamePage> {
         builder: (BuildContext context) {
           return PlatformAlertDialog(
             title: PlatformText("Hello There."),
-            content: PlatformText("The slider's value is ${_model.current}"),
+            content: PlatformText("The slider's value is ${_model.current}\n" +
+                "You scored ${_pointsForCurrentRound()} points this round."),
             actions: <Widget>[okButton],
           );
         });

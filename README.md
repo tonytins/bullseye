@@ -1,3 +1,3 @@
-# BullsEye
+# Bullseye
 
-A game written in Flutter, based on a tutorial with my own tweaks added.
+A game written in Flutter based on a tutorial, with my own tweaks added.
