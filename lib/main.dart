@@ -39,7 +39,7 @@ class BullsEyeApp extends StatelessWidget {
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return PlatformApp(
         title: gameTitle,
-        debugShowCheckedModeBanner: false,
+        // debugShowCheckedModeBanner: false,
         home: GamePage(title: gameTitle));
   }
 }
@@ -63,6 +63,15 @@ class _GamePageState extends State<GamePage> {
     _model = GameModel(rng.nextInt(100) + 1);
   }
 
+  int _sliderValue() => _model.current;
+
+  int _pointsForCurrentRound() {
+    var maxScore = 100;
+    var difference = (_model.target - _sliderValue()).abs();
+
+    return maxScore - difference;
+  }
+
   Widget gameContainer() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -72,8 +81,8 @@ class _GamePageState extends State<GamePage> {
         PlatformTextButton(
             child: PlatformText('Hit me!'),
             onPressed: () {
-              this._alertIsVisable = true;
               _showAlert(context);
+              this._alertIsVisable = true;
             })
       ],
     );
@@ -116,20 +125,17 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  int _pointsForCurrentRound() {
-    var maxScore = 100;
-    var difference = (_model.target - _model.current).abs();
-
-    return maxScore - difference;
-  }
-
   void _showAlert(BuildContext context) {
     var okButton = PlatformTextButton(
         child: PlatformText("Awesome!"),
         onPressed: () {
           Navigator.of(context).pop();
           this._alertIsVisable = false;
-          print("Awesome Pressed! $_alertIsVisable");
+          setState(() {
+            _model.totalScore += _pointsForCurrentRound();
+            var rng = Random();
+            _model.target = rng.nextInt(100) + 1;
+          });
         });
 
     showPlatformDialog(
@@ -137,7 +143,7 @@ class _GamePageState extends State<GamePage> {
         builder: (BuildContext context) {
           return PlatformAlertDialog(
             title: PlatformText("Hello There."),
-            content: PlatformText("The slider's value is ${_model.current}\n" +
+            content: PlatformText("The slider's value is ${_sliderValue()}\n" +
                 "You scored ${_pointsForCurrentRound()} points this round."),
             actions: <Widget>[okButton],
           );
