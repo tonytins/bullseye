@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["build", "apk"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build apk"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["build", "ios"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build ios"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["build", "macos"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build macos"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["install"],
+      "problemMatcher": [],
+      "label": "flutter: flutter install"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["pub", "get"],
+      "problemMatcher": [],
+      "label": "flutter: flutter pub get"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["pub", "upgrade"],
+      "problemMatcher": [],
+      "label": "flutter: flutter pub upgrade"
+    }
+  ]
+}
