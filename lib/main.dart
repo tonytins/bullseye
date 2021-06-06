@@ -40,13 +40,12 @@ class BullsEyeApp extends StatelessWidget {
     return PlatformApp(
         title: gameTitle,
         // debugShowCheckedModeBanner: false,
-        home: GamePage(title: gameTitle));
+        home: GamePage());
   }
 }
 
 class GamePage extends StatefulWidget {
-  GamePage({Key? key, this.title}) : super(key: key);
-  final String? title;
+  GamePage({Key? key}) : super(key: key);
 
   @override
   _GamePageState createState() => _GamePageState();
