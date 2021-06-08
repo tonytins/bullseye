@@ -14,6 +14,11 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
+    },
+    {
+      "name": "Flutter: Attach to Device",
+      "type": "dart",
+      "request": "attach"
     }
   ]
 }

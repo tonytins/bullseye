@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:bullseye/desktop.dart';
+import 'package:bullseye/adaptive.dart';
 
 import 'package:flutter/material.dart';
 
@@ -96,20 +96,26 @@ class _GamePageState extends State<GamePage> {
   }
 
   Widget desktopContainer() {
-    return Column(children: [
-      Container(
-          height: 50,
-          child: WindowTitleBarBox(
-              child: Row(
-            children: [
-              Expanded(
-                  child: MoveWindow(
-                      child: Score(
-                          totalScore: _model.totalScore, round: _model.round)))
-            ],
-          ))),
-      Expanded(child: gameContainer()),
-    ]);
+    var score = Score(totalScore: _model.totalScore, round: _model.round);
+
+    // Fallback to standard Flutter window on Linux while retaining the score toolbar.
+    // Rendering on Linux isn't quite perfect yet, but it's better than nothing.
+    if (isMacWin) {
+      return Column(children: [
+        Container(
+            height: 50,
+            child: WindowTitleBarBox(
+                child: Row(
+              children: [Expanded(child: MoveWindow(child: score))],
+            ))),
+        Expanded(child: gameContainer()),
+      ]);
+    } else {
+      return Column(children: [
+        Container(height: 50, child: score),
+        Expanded(child: gameContainer()),
+      ]);
+    }
   }
 
   @override
