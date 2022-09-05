@@ -1,6 +1,5 @@
 import 'package:bullseye/game_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class Control extends StatefulWidget {
   Control({Key? key, @required this.model}) : super(key: key);
@@ -20,12 +19,12 @@ class _ControlState extends State<Control> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(PADDING),
-          child: PlatformText("1"),
+        const Padding(
+          padding: EdgeInsets.all(PADDING),
+          child: Text("1"),
         ),
         Expanded(
-          child: PlatformSlider(
+          child: Slider(
             value: currentValue!.toDouble(),
             onChanged: (newValue) {
               setState(() {
@@ -36,9 +35,9 @@ class _ControlState extends State<Control> {
             max: 100.0,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(PADDING),
-          child: PlatformText("100"),
+        const Padding(
+          padding: EdgeInsets.all(PADDING),
+          child: Text("100"),
         )
       ],
     );

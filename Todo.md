@@ -7,3 +7,7 @@
 - [x] Put game info on the screen
 - [x] Put slider on screen: 1 -> 100
 - [x] Read value of the slider
+
+## Part 2
+
+TBA

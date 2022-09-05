@@ -9,7 +9,6 @@ import 'package:bullseye/prompt.dart';
 import 'package:bullseye/control.dart';
 import 'package:bullseye/score.dart';
 import 'package:bullseye/game_model.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 const gameTitle = "Bullseye";
 
@@ -19,7 +18,7 @@ void main() {
   if (isDesktop) {
     doWhenWindowReady(() {
       final win = appWindow;
-      final minSize = Size(600, 450);
+      const minSize = Size(600, 450);
 
       win.minSize = minSize;
       win.size = minSize;
@@ -37,7 +36,7 @@ class BullsEyeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-    return PlatformApp(
+    return MaterialApp(
         title: gameTitle,
         // debugShowCheckedModeBanner: false,
         home: GamePage());
@@ -77,11 +76,11 @@ class _GamePageState extends State<GamePage> {
       children: [
         Prompt(targetValue: _model.target),
         Control(model: _model),
-        PlatformTextButton(
-            child: PlatformText('Hit me!'),
+        TextButton(
+            child: const Text('Hit me!'),
             onPressed: () {
               _showAlert(context);
-              this._alertIsVisable = true;
+              _alertIsVisable = true;
             })
       ],
     );
@@ -122,20 +121,21 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
-        if (isDesktop)
+        if (isDesktop) {
           return desktopContainer();
-        else
+        } else {
           return mobileContainer();
+        }
       }),
     );
   }
 
   void _showAlert(BuildContext context) {
-    var okButton = PlatformTextButton(
-        child: PlatformText("Awesome!"),
+    var okButton = TextButton(
+        child: const Text("Awesome!"),
         onPressed: () {
           Navigator.of(context).pop();
-          this._alertIsVisable = false;
+          _alertIsVisable = false;
           setState(() {
             _model.totalScore += _pointsForCurrentRound();
             var rng = Random();
@@ -143,12 +143,12 @@ class _GamePageState extends State<GamePage> {
           });
         });
 
-    showPlatformDialog(
+    showDialog(
         context: context,
         builder: (BuildContext context) {
-          return PlatformAlertDialog(
-            title: PlatformText("Hello There."),
-            content: PlatformText("The slider's value is ${_sliderValue()}\n" +
+          return AlertDialog(
+            title: const Text("Hello There."),
+            content: Text("The slider's value is ${_sliderValue()}\n" +
                 "You scored ${_pointsForCurrentRound()} points this round."),
             actions: <Widget>[okButton],
           );

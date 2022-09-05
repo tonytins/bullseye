@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class Score extends StatelessWidget {
   Score({Key? key, @required this.totalScore, @required this.round})
@@ -13,16 +12,16 @@ class Score extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PlatformTextButton(
-          child: PlatformText("Start Over"),
+        TextButton(
+          child: Text("Start Over"),
           onPressed: () {},
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              PlatformText("Score:"),
-              PlatformText("$totalScore"),
+              Text("Score:"),
+              Text("$totalScore"),
             ],
           ),
         ),
@@ -30,13 +29,13 @@ class Score extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              PlatformText("Round:"),
-              PlatformText("$round"),
+              Text("Round:"),
+              Text("$round"),
             ],
           ),
         ),
-        PlatformTextButton(
-          child: PlatformText("Info"),
+        TextButton(
+          child: Text("Info"),
           onPressed: () {},
         )
       ],

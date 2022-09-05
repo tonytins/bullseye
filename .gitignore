@@ -1,7 +1,7 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,flutter,dart,backup,jetbrains+iml
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,flutter,dart,backup,jetbrains+iml
+# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,jetbrains+iml,flutter,dart,backup
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,jetbrains+iml,flutter,dart,backup
 
 ### Backup ###
 *.bak
@@ -24,6 +24,9 @@ pubspec.lock
 # If you don't generate documentation locally you can remove this line.
 doc/api/
 
+# dotenv environment variables file
+.env*
+
 # Avoid committing generated Javascript files:
 *.dart.js
 *.info.json      # Produced by the --dump-info flag.
@@ -33,11 +36,16 @@ doc/api/
 *.js.deps
 *.js.map
 
+.flutter-plugins
+.flutter-plugins-dependencies
+
+### Dart Patch ###
+# dotenv environment variables file
+.env
+
 ### Flutter ###
 # Flutter/Dart/Pub related
 **/doc/api/
-.flutter-plugins
-.flutter-plugins-dependencies
 .fvm/
 .pub-cache/
 .pub/
@@ -105,6 +113,9 @@ lib/generated_plugin_registrant.dart
 .idea/**/dictionaries
 .idea/**/shelf
 
+# AWS User-specific
+.idea/**/aws.xml
+
 # Generated files
 .idea/**/contentModel.xml
 
@@ -154,6 +165,9 @@ atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
 .idea/replstate.xml
+
+# SonarLint plugin
+.idea/sonarlint/
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -219,6 +233,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### macOS Patch ###
+# iCloud generated files
+*.icloud
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -245,6 +263,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,flutter,dart,backup,jetbrains+iml
+# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,jetbrains+iml,flutter,dart,backup
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
+

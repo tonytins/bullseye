@@ -45,6 +45,13 @@
       "args": ["pub", "upgrade"],
       "problemMatcher": [],
       "label": "flutter: flutter pub upgrade"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["pub", "outdated"],
+      "problemMatcher": [],
+      "label": "flutter: flutter pub outdated"
     }
   ]
 }
