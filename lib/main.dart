@@ -37,9 +37,11 @@ class BullsEyeApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return MaterialApp(
-        title: gameTitle,
-        // debugShowCheckedModeBanner: false,
-        home: GamePage());
+      title: gameTitle,
+      // debugShowCheckedModeBanner: false,
+      home: GamePage(), darkTheme: ThemeData(brightness: Brightness.dark),
+      themeMode: ThemeMode.system,
+    );
   }
 }
 
