@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:bullseye/adaptive.dart';
 
 import 'package:flutter/material.dart';
@@ -14,20 +13,6 @@ const gameTitle = "Bullseye";
 
 void main() {
   runApp(BullsEyeApp());
-
-  if (isDesktop) {
-    doWhenWindowReady(() {
-      final win = appWindow;
-      const minSize = Size(600, 450);
-
-      win.minSize = minSize;
-      win.size = minSize;
-      win.alignment = Alignment.center;
-      win.title = gameTitle;
-
-      win.show();
-    });
-  }
 }
 
 class BullsEyeApp extends StatelessWidget {
@@ -53,7 +38,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  bool _alertIsVisable = false;
+  bool _alertIsVisible = false;
   late GameModel _model;
 
   @override
@@ -82,51 +67,39 @@ class _GamePageState extends State<GamePage> {
             child: const Text('Hit me!'),
             onPressed: () {
               _showAlert(context);
-              _alertIsVisable = true;
+              _alertIsVisible = true;
             })
       ],
     );
   }
 
-  Widget mobileContainer() {
+  Widget mobileContainer(Score score) {
     return SafeArea(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      gameContainer(),
-      Score(totalScore: _model.totalScore, round: _model.round)
-    ]));
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [gameContainer(), score]));
   }
 
-  Widget desktopContainer() {
-    var score = Score(totalScore: _model.totalScore, round: _model.round);
-
-    // Fallback to standard Flutter window on Linux while retaining the score toolbar.
-    // Rendering on Linux isn't quite perfect yet, but it's better than nothing.
-    if (isMacWin) {
-      return Column(children: [
-        Container(
-            height: 50,
-            child: WindowTitleBarBox(
-                child: Row(
-              children: [Expanded(child: MoveWindow(child: score))],
-            ))),
-        Expanded(child: gameContainer()),
-      ]);
-    } else {
-      return Column(children: [
-        Container(height: 50, child: score),
-        Expanded(child: gameContainer()),
-      ]);
-    }
+  Widget tabletContainer(Score score) {
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.all(45.0),
+        child: score,
+      ),
+      Expanded(child: gameContainer()),
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
+    var score = Score(totalScore: _model.totalScore, round: _model.round);
+
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
-        if (isDesktop) {
-          return desktopContainer();
+        if (isMobile(context)) {
+          return mobileContainer(score);
         } else {
-          return mobileContainer();
+          return tabletContainer(score);
         }
       }),
     );
@@ -137,7 +110,7 @@ class _GamePageState extends State<GamePage> {
         child: const Text("Awesome!"),
         onPressed: () {
           Navigator.of(context).pop();
-          _alertIsVisable = false;
+          _alertIsVisible = false;
           setState(() {
             _model.totalScore += _pointsForCurrentRound();
             var rng = Random();

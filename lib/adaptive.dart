@@ -1,21 +1,10 @@
-import 'dart:io';
-
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 
-bool get isDesktop =>
-    (Platform.isLinux || Platform.isMacOS || Platform.isWindows);
-bool get isMacWin => (Platform.isMacOS || Platform.isWindows);
+bool isMobile(BuildContext context) {
+  // The equivalent of the "smallestWidth" qualifier on Android.
+  var shortestSide = MediaQuery.of(context).size.shortestSide;
 
-class WindowButtons extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        MinimizeWindowButton(),
-        MaximizeWindowButton(),
-        CloseWindowButton()
-      ],
-    );
-  }
+// Determine if we should use mobile layout or not, 600 here is
+// a common breakpoint for a typical 7-inch tablet.
+  return shortestSide < 600;
 }
